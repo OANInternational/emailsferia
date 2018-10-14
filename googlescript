@@ -1,0 +1,95 @@
+function EnviarEmail() {
+    
+  var hojaCalculo = SpreadsheetApp.openById("1kuTgu4pVYTzjZhVeDCi3c5lsqcH_k-TJj3FmMPBLWio");
+  var hojaEmail = hojaCalculo.getSheetByName('ListaCorreos');
+  var hojaMensaje = hojaCalculo.getSheetByName('Mensaje');
+  
+  var ultimaFila = hojaEmail.getLastRow();
+  var ultimaFila1 = hojaMensaje.getLastRow();
+  
+  var nombre = [];
+  var email = [];
+  var lugar = [];
+  
+   for(var i=0; i < ultimaFila-1; i++) { 
+     nombre[i]=hojaEmail.getSheetValues(i+2, 1, 1, 1);
+     email[i]=String(hojaEmail.getSheetValues(i+2, 3, 1, 1));
+     lugar[i]=hojaEmail.getSheetValues(i+2, 4, 1, 1);
+     
+   }
+  
+  var cuerpocorreo1=hojaMensaje.getSheetValues(1,2,1,1);
+  var cuerpocorreo2=hojaMensaje.getSheetValues(2,2,1,1);
+  var cuerpocorreo3=hojaMensaje.getSheetValues(3,2,1,1);
+  var cuerpocorreo4=hojaMensaje.getSheetValues(4,2,1,1);
+  var cuerpocorreo5=hojaMensaje.getSheetValues(5,2,1,1);
+
+  
+  
+  for (var j=0; j < ultimaFila-1;j++){
+  
+    MailApp.sendEmail({
+    to: email[j],
+    subject: "Reunion OAN International",
+    htmlBody: "Hola "+String(nombre[j])+
+    "<br><br>"+String(cuerpocorreo1)+String(lugar[j])+" "+
+    String(cuerpocorreo2)+"<br><br>"+"<a href=https://docs.google.com/forms/d/e/1FAIpQLScawMpZVZsUK0pIpNBxIs1rHdWyixmqJsvOpnosyXeVP8mPfw/viewform?usp=sf_link> <b>Link a Formulario de Asistencia</b></a>"+
+    "<br><br> <center><b> ¿Qué es OAN International? </b> </center>"+"<center><i>"+String(cuerpocorreo3)+"</i></center>"+
+    "<br><br>"+String(cuerpocorreo4)+String(cuerpocorreo5)
+    });
+}
+}
+
+function EnviarEmailPrueba() {
+    
+  var hojaCalculo = SpreadsheetApp.getActiveSpreadsheet();
+  var hojaEmail = hojaCalculo.getSheetByName('Prueba');
+  var hojaMensaje = hojaCalculo.getSheetByName('MensajePrueba');
+  
+  var ultimaFila = hojaEmail.getLastRow();
+  var ultimaFila1 = hojaMensaje.getLastRow();
+  
+  var nombre = [];
+  var email = [];
+  var lugar = [];
+  
+   for(var i=0; i < ultimaFila-1; i++) { 
+     nombre[i]=hojaEmail.getSheetValues(i+2, 1, 1, 1);
+     email[i]=String(hojaEmail.getSheetValues(i+2, 3, 1, 1));
+     lugar[i]=hojaEmail.getSheetValues(i+2, 4, 1, 1);
+     
+   }
+  
+  var cuerpocorreo1=hojaMensaje.getSheetValues(1,2,1,1);
+  var cuerpocorreo2=hojaMensaje.getSheetValues(2,2,1,1);
+  var cuerpocorreo3=hojaMensaje.getSheetValues(3,2,1,1);
+  var cuerpocorreo4=hojaMensaje.getSheetValues(4,2,1,1);
+  var cuerpocorreo5=hojaMensaje.getSheetValues(5,2,1,1);
+
+  
+  
+  for (var j=0; j < ultimaFila-1;j++){
+  
+    MailApp.sendEmail({
+    to: email[j],
+    subject: "Reunion OAN International",
+    htmlBody: "Hola "+String(nombre[j])+
+    "<br><br>"+String(cuerpocorreo1)+String(lugar[j])+" "+
+    String(cuerpocorreo2)+"<br><br>"+"<a href=https://docs.google.com/forms/d/e/1FAIpQLScawMpZVZsUK0pIpNBxIs1rHdWyixmqJsvOpnosyXeVP8mPfw/viewform?usp=sf_link> <b>Link a Formulario de Asistencia</b></a>"+
+    "<br><br> <center><b> ¿Qué es OAN International? </b> </center>"+"<center><i>"+String(cuerpocorreo3)+"</i></center>"+
+    "<br><br>"+String(cuerpocorreo4)+String(cuerpocorreo5)
+    });
+}
+}
+function onOpen(){
+var spreadsheet = SpreadsheetApp.getActive();
+var menuItems = [
+{name: 'Prueba Emails', functionName: 'EnviarEmailPrueba'}
+];
+spreadsheet.addMenu('Prueba Emails', menuItems);
+var menuItems = [ 
+{name: 'Enviar Emails', functionName: 'EnviarEmail'}
+];
+spreadsheet.addMenu('Enviar Emails', menuItems);
+  
+}
